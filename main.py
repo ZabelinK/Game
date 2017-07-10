@@ -1,5 +1,5 @@
 import pygame, Implementation.Level
-
+from pygame import *
 
 def main():
     pygame.init()
@@ -12,8 +12,8 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 mainLoop = False
-            level.event(event)
-
+        keys = pygame.key.get_pressed()
+        level.event(keys)
         level.draw()
         pygame.display.flip()
 

@@ -24,21 +24,17 @@ class Level(sprite.Sprite) :
             x = 0
             y += constans.BLOCK_HEIGHT
 
-    def event(self, event):
+        print("init")
+
+    def event(self, keys):
         left = right = up = False
-        if event.type == KEYDOWN and event.key == K_LEFT:
+        if keys[K_LEFT]:
             left = True
-        if event.type == KEYDOWN and event.key == K_RIGHT:
+        if keys[K_RIGHT]:
             right = True
-        if event.type == KEYDOWN and event.key == K_UP:
+        if keys[K_UP]:
             up = True
 
-        if event.type == KEYUP and event.key == K_RIGHT:
-            right = False
-        if event.type == KEYUP and event.key == K_LEFT:
-            left = False
-        if event.type == KEYUP and event.key == K_UP:
-            up = False
         self.player.update(left, right, up, self.blocks)
 
     def draw(self):

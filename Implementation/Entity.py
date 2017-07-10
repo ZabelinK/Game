@@ -26,7 +26,7 @@ class Player(sprite.Sprite) :
         if right:
             self.xvel = constans.MOVE_SPEED
 
-        if (left and right) :
+        if not (left or right):
             self.xvel = 0
 
         if self.on_ground and up :
@@ -34,27 +34,27 @@ class Player(sprite.Sprite) :
             self.on_ground = False
 
         self.rect.x += self.xvel
-        self.collide(self.xvel, self.yvel, blocks)
+        self.collide(blocks)
         self.rect.y += self.yvel
-        self.collide(self.xvel, self.yvel, blocks)
-        self.yvel += constans.GRAVITY
+        self.collide(blocks)
 
-    def collide(self, xvel, yvel, blocks):
+        if not self.on_ground:
+            self.yvel += constans.GRAVITY
+
+    def collide(self, blocks):
         for p in blocks:
             if self.rect.colliderect(p.rect):
-                if xvel > 0:
-                    print('!')
+                if self.xvel > 0:
                     self.rect.right = p.rect.left
 
-                if xvel < 0:
-                    print('$')
+                if self.xvel < 0:
                     self.rect.left = p.rect.right
 
-                if yvel > 0:
+                if self.yvel > 0:
                     self.rect.bottom = p.rect.top
                     self.on_ground = True
                     self.yvel = 0
 
-                if yvel < 0:
+                if self.yvel < 0:
                     self.rect.top = p.rect.bottom
                     self.yvel = 0
