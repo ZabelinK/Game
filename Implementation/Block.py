@@ -1,15 +1,10 @@
-import pygame, Implementation.constans
+import pygame, Implementation.constans as constans
 from pygame import *
 
 class Block(sprite.Sprite) :
-    def __init__(self, sym, x, y, face) :
-        self.x = x
-        self.y = y
-        self.sym = sym
-        self.face = face
-
-    def draw(self):
-        if self.sym == '#':
-            pygame.draw.rect(self.face, Color("Red"), Rect(self.x, self.y,
-                                                  Implementation.constans.BLOCK_HEIGHT,
-                                                  Implementation.constans.BLOCK_WIDTH))
+    def __init__(self, sym, x, y) :
+        sprite.Sprite.__init__(self)
+        self.image = Surface((constans.BLOCK_WIDTH, constans.BLOCK_HEIGHT))
+        if sym == '#':
+            self.image.fill(Color("Red"))
+        self.rect = Rect(x, y, constans.BLOCK_WIDTH, constans.BLOCK_HEIGHT)
